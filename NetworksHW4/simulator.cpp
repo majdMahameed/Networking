@@ -9,21 +9,21 @@
 
 template<typename Frame>
 class Server {
-    public:
+public:
     int max_size;
     std::vector<Frame>* queue = new std::vector<Frame>();
     double probability;
     double service_rate;
     double last_service_time;
     Server(int size, double P, double service_rate): max_size(size),probability(P),
-    service_rate(service_rate){}
+                                                     service_rate(service_rate){}
     ~Server() = default;
 };
 
 
 template<typename Frame,typename Server>
 class Simulator{
-    public:
+public:
 
     double run_time = 0;
     int processed_count = 0;
@@ -39,7 +39,7 @@ class Simulator{
     std::vector<Server>* servers_queue;
 
     Simulator(double T, int N, std::vector<Frame>* frame_arrival_queue, std::vector<Server>* servers_queue, int num_of_frames)
-              :total_time(T), servers_num(N), frame_arrival_queue(frame_arrival_queue), servers_queue(servers_queue), num_of_frames(num_of_frames){}
+            :total_time(T), servers_num(N), frame_arrival_queue(frame_arrival_queue), servers_queue(servers_queue), num_of_frames(num_of_frames){}
 
     ~Simulator() = default;
 
@@ -81,14 +81,14 @@ class Simulator{
                 is_process = false;
             } else{
                 current_frame->process(ARRIVAL);
-            i++;
+                i++;
             }
         }
         Print();
     }
     void Print(){
         std::cout << this->processed_count << " " << this->tossed_count << " " << this->run_time
-        << " " << this->wait_time/ this->processed_count << " " << this->service_time/ this->processed_count;
+                  << " " << this->wait_time/ this->processed_count << " " << this->service_time/ this->processed_count;
     }
 };
 class Frame{
@@ -162,12 +162,12 @@ int main(int argc, char* argv[]) {
     int num_of_frames = total_time * std::stoi(argv[num_of_servers + 3]);
     int poisson_rate = std::stod(argv[num_of_servers + 3]);
 
-  /*
-    int num_of_servers = 1;
-    double total_time = 2500;
-    int num_of_frames = total_time * 9;
-    int poisson_rate = 9;
-*/
+    /*
+      int num_of_servers = 1;
+      double total_time = 2500;
+      int num_of_frames = total_time * 9;
+      int poisson_rate = 9;
+  */
     std::vector<Frame>* frames_arrival_queue = new std::vector<Frame>();
     std::vector<Server<Frame>>* servers_queue = new std::vector<Server<Frame>>();
     std::vector<double>* probabilities = new std::vector<double>();
@@ -179,7 +179,7 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i < num_of_servers; ++i) {
         probabilities->push_back(std::stod(argv[i + 3]));
         Server<Frame>* server = new Server<Frame>(std::stoi(argv[i + 4 + num_of_servers]),probabilities->back(),std::stod(argv[i + 4 + 2*num_of_servers]));
-     //   Server<Frame>* server = new Server<Frame>(server_size[i],probabilities[i],service_rate_queue[i]);
+        //   Server<Frame>* server = new Server<Frame>(server_size[i],probabilities[i],service_rate_queue[i]);
         servers_queue->push_back(*server);
     }
     // Check that probabilities sum to 1
@@ -193,7 +193,7 @@ int main(int argc, char* argv[]) {
     //Generate Arrival times for the packets
     for (int i = 0; i < num_of_frames; ++i) {
         std::default_random_engine generator;  // Seed for the random number engine
-         generator.seed(std::random_device()());
+        generator.seed(std::random_device()());
         // Define a distribution that produces values between 0 and 1
         std::uniform_real_distribution<> dis(0.0, 1.0);
         double rand = dis(generator);
