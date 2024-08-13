@@ -157,10 +157,10 @@ public:
 
 
 int main(int argc, char* argv[]) {
-    int num_of_servers = int(*argv[1]);
-    double total_time = double (*argv[0]);
-    int num_of_frames = total_time * int (*argv[num_of_servers + 2]);
-    int poisson_rate = double (*argv[num_of_servers + 2]);
+    int num_of_servers = std::stoi(argv[2]);
+    double total_time = std::stod(argv[1]);
+    int num_of_frames = total_time * std::stoi(argv[num_of_servers + 3]);
+    int poisson_rate = std::stod(argv[num_of_servers + 3]);
 
   /*
     int num_of_servers = 1;
@@ -177,8 +177,8 @@ int main(int argc, char* argv[]) {
     double time = 0;
     //Assign properties to servers
     for (int i = 0; i < num_of_servers; ++i) {
-        probabilities->push_back(double(*argv[i + 2]));
-        Server<Frame>* server = new Server<Frame>(int(*argv[i + 3 + num_of_servers]),probabilities->back(),int(*argv[i + 3 + 2*num_of_servers]));
+        probabilities->push_back(std::stod(argv[i + 3]));
+        Server<Frame>* server = new Server<Frame>(std::stoi(argv[i + 4 + num_of_servers]),probabilities->back(),std::stod(argv[i + 4 + 2*num_of_servers]));
      //   Server<Frame>* server = new Server<Frame>(server_size[i],probabilities[i],service_rate_queue[i]);
         servers_queue->push_back(*server);
     }
