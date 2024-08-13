@@ -1,8 +1,0 @@
-#!/bin/sh
-#!/bin/bash
-
-# Compile the C++ code
-g++ -o main main.cpp
-
-# Run the compiled executable
-./main "$@"
